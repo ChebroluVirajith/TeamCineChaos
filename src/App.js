@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/global.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Crew from './pages/Crew';
 import Home from './pages/Home';
 
 const Placeholder = ({ title }) => (
@@ -32,7 +33,7 @@ export default function App() {
       <Routes>
         <Route path="/"         element={<Home />} />
         <Route path="/films"    element={<Placeholder title="FILMS" />} />
-        <Route path="/crew"     element={<Placeholder title="CREW" />} />
+       <Route path="/crew"     element={<Crew />} />
         <Route path="/btl"      element={<Placeholder title="BEHIND THE LENS" />} />
         <Route path="/contact"  element={<Placeholder title="CONTACT" />} />
       </Routes>
