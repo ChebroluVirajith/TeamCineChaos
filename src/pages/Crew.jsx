@@ -90,7 +90,7 @@ const CREW_MEMBERS = [
     department: 'camera',
     frameIndex: '27',
     greasePencilType: 'check',
-    bio: 'Siddharth is the master of shadow and shape. He translates the DP’s lighting visual maps into physical power setups, shaping light with absolute control.',
+    bio: 'Siddharth is the master of shadow and shape. He translates the DP\'s lighting visual maps into physical power setups, shaping light with absolute control.',
     filmography: ['Undying Part-1', 'After Hours', 'Echos in the Dark'],
     gear: ['Aputure 600d Pro', 'Nanlite PavoTube II', 'C-Stands & Diffusion Scrims'],
     quote: "Controlling the darkness is just as important as positioning the light."
@@ -102,7 +102,7 @@ const CREW_MEMBERS = [
     department: 'camera',
     frameIndex: '28',
     greasePencilType: 'cross',
-    bio: 'Ananya defines the crew’s identities through fabrics. Her designs emphasize raw textures, weathered details, and organic silhouettes that feel lived-in.',
+    bio: 'Ananya defines the crew\'s identities through fabrics. Her designs emphasize raw textures, weathered details, and organic silhouettes that feel lived-in.',
     filmography: ['Undying Part-1', 'Fragmented', 'The Last Room'],
     gear: ['Singer Heavy Duty Sewing Machine', 'Fabric Distressing Kits'],
     quote: "A character's history should be written in the threads of their clothes."
@@ -114,7 +114,7 @@ const CREW_MEMBERS = [
     department: 'production',
     frameIndex: '29',
     greasePencilType: 'circle',
-    bio: 'The general on the field. Kabir coordinates the chaos of the set, maintaining the shooting schedule and ensuring the Director\'s vision stays on track.',
+    bio: "The general on the field. Kabir coordinates the chaos of the set, maintaining the shooting schedule and ensuring the Director's vision stays on track.",
     filmography: ['Undying Part-1', 'Chaos Theory', 'Vignettes of AP'],
     gear: ['Custom Slate', 'Motorola Walkie-Talkie', 'iPad Pro (Scriptation)'],
     quote: "Efficiency is the backbone that allows artistic chaos to thrive."
@@ -198,9 +198,9 @@ const CREW_MEMBERS = [
     department: 'production',
     frameIndex: '36',
     greasePencilType: 'circle',
-    bio: 'Karan acts as a bridge between performance and production. He scouted the ensemble cast for Undying, and performs roles with psychological realism.',
+    bio: "Karan acts as a bridge between performance and production. He scouted the ensemble cast for Undying, and performs roles with psychological realism.",
     filmography: ['Undying Part-1', 'After Hours', 'Fragmented'],
-    gear: ['Actor\'s physical prep journals', 'Sony Alpha 7IV (Auditions)'],
+    gear: ["Actor's physical prep journals", 'Sony Alpha 7IV (Auditions)'],
     quote: "Acting is not about pretending; it is about finding the truth under a mask."
   }
 ];
@@ -212,75 +212,54 @@ function GreasePencil({ type, isHovered }) {
     transition: { duration: 0.5, ease: [0.19, 1, 0.22, 1] }
   };
 
-  const color = '#ff3b30'; // Cinematic Grease Pencil Red
+  const color = '#ff3b30';
 
   if (type === 'circle') {
     return (
       <svg className="grease-pencil grease-pencil--circle" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <motion.path
           d="M 12 18 C 50 10, 95 15, 88 52 C 82 82, 45 88, 18 72 C 5 58, 8 28, 38 18 C 52 13, 76 15, 71 28"
-          stroke={color}
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
           {...selectStroke}
         />
       </svg>
     );
   }
-
   if (type === 'check') {
     return (
       <svg className="grease-pencil grease-pencil--check" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <motion.path
           d="M 20 52 L 42 74 L 84 22"
-          stroke={color}
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          stroke={color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
           {...selectStroke}
         />
       </svg>
     );
   }
-
   if (type === 'cross') {
     return (
       <svg className="grease-pencil grease-pencil--cross" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <motion.path
-          d="M 15 15 L 85 85"
-          stroke={color}
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          {...selectStroke}
-        />
+        <motion.path d="M 15 15 L 85 85" stroke={color} strokeWidth="2.5" strokeLinecap="round" {...selectStroke} />
         <motion.path
           d="M 85 15 L 15 85"
-          stroke={color}
-          strokeWidth="2.5"
-          strokeLinecap="round"
+          stroke={color} strokeWidth="2.5" strokeLinecap="round"
           {...selectStroke}
           transition={{ ...selectStroke.transition, delay: 0.15 }}
         />
       </svg>
     );
   }
-
   if (type === 'star') {
     return (
       <svg className="grease-pencil grease-pencil--star" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <motion.path
           d="M 50 10 L 62 36 L 90 38 L 68 55 L 75 82 L 50 67 L 25 82 L 32 55 L 10 38 L 38 36 Z"
-          stroke={color}
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
           {...selectStroke}
         />
       </svg>
     );
   }
-
   return null;
 }
 
@@ -288,16 +267,10 @@ function FilmFrame({ member, index = 0, onClick }) {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-5%' });
+  const staggerDelay = index * 0.15;
 
-  // Initials for beautiful fallback avatar placeholder
-  const getInitials = (name) => {
-    return name
-      .split(' ')
-      .map(n => n[0])
-      .join('')
-      .toUpperCase();
-  };
-const staggerDelay = index * 0.15; // 150ms stagger per card
+  const getInitials = (name) =>
+    name.split(' ').map(n => n[0]).join('').toUpperCase();
 
   return (
     <motion.div
@@ -320,18 +293,12 @@ const staggerDelay = index * 0.15; // 150ms stagger per card
             <span className="film-frame__placeholder-sub">frame {member.frameIndex}</span>
           </div>
         )}
-
-        {/* Viewfinder corner lines */}
         <div className="film-frame__bracket film-frame__bracket--tl" />
         <div className="film-frame__bracket film-frame__bracket--tr" />
         <div className="film-frame__bracket film-frame__bracket--bl" />
         <div className="film-frame__bracket film-frame__bracket--br" />
-
-        {/* Grease Pencil overlay selector */}
-         <GreasePencil type="star" isHovered={isHovered} />
+        <GreasePencil type="star" isHovered={isHovered} />
       </div>
-
-      {/* Frame overlay description tag (subtle, film style label) */}
       <div className="film-frame__label">
         <span className="film-frame__name">{member.name}</span>
         <span className="film-frame__role">{member.role}</span>
@@ -340,11 +307,9 @@ const staggerDelay = index * 0.15; // 150ms stagger per card
   );
 }
 
-function FilmStrip({ row, activeIdxOffset, onFrameClick }) {
+function FilmStrip({ row, onFrameClick }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-5%' });
-
-  // Calculate sprocket counts based on row length
   const sprocketCount = 18;
 
   return (
@@ -355,26 +320,16 @@ function FilmStrip({ row, activeIdxOffset, onFrameClick }) {
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Top sprocket holes */}
       <div className="film-strip__sprockets film-strip__sprockets--top">
         {[...Array(sprocketCount)].map((_, i) => (
           <div key={i} className="film-strip__sprocket-hole" />
         ))}
       </div>
-
-      {/* Film frames strip */}
       <div className="film-strip__frames">
         {row.map((member, index) => (
-          <FilmFrame
-            key={member.id}
-            member={member}
-             index={index}
-            onClick={() => onFrameClick(member)}
-          />
+          <FilmFrame key={member.id} member={member} index={index} onClick={() => onFrameClick(member)} />
         ))}
       </div>
-
-      {/* Bottom sprocket holes and markers */}
       <div className="film-strip__sprockets film-strip__sprockets--bottom">
         {[...Array(sprocketCount)].map((_, i) => (
           <div key={i} className="film-strip__sprocket-hole" />
@@ -396,49 +351,40 @@ export default function Crew() {
   const [selectedDept, setSelectedDept] = useState('all');
   const [activeMember, setActiveMember] = useState(null);
 
-  // Scroll to top on page mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Filter crew list based on selected department
   const filteredCrew = selectedDept === 'all'
     ? CREW_MEMBERS
     : CREW_MEMBERS.filter(member => member.department === selectedDept);
 
-  // Group crew members into chunks of 4 for horizontal film strips
   const chunkedCrew = [];
   for (let i = 0; i < filteredCrew.length; i += 4) {
     chunkedCrew.push(filteredCrew.slice(i, i + 4));
   }
 
-  // Handle keyboard navigation inside viewfinder modal
-  const handleKeyDown = (e) => {
-    if (!activeMember) return;
-    const currentIndex = filteredCrew.findIndex(m => m.id === activeMember.id);
-
-    if (e.key === 'Escape') {
-      setActiveMember(null);
-    } else if (e.key === 'ArrowRight') {
-      const nextIndex = (currentIndex + 1) % filteredCrew.length;
-      setActiveMember(filteredCrew[nextIndex]);
-    } else if (e.key === 'ArrowLeft') {
-      const prevIndex = (currentIndex - 1 + filteredCrew.length) % filteredCrew.length;
-      setActiveMember(filteredCrew[prevIndex]);
-    }
-  };
-
+  // ── FIX: handleKeyDown defined inside useEffect to satisfy exhaustive-deps ──
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!activeMember) return;
+      const currentIndex = filteredCrew.findIndex(m => m.id === activeMember.id);
+      if (e.key === 'Escape') {
+        setActiveMember(null);
+      } else if (e.key === 'ArrowRight') {
+        setActiveMember(filteredCrew[(currentIndex + 1) % filteredCrew.length]);
+      } else if (e.key === 'ArrowLeft') {
+        setActiveMember(filteredCrew[(currentIndex - 1 + filteredCrew.length) % filteredCrew.length]);
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeMember, filteredCrew]);
 
   return (
     <main className="crew-page">
-      {/* Background grain & grid lines */}
       <div className="crew-page__grid-lines" aria-hidden="true" />
 
-      {/* Header section */}
       <section className="crew-page__hero">
         <motion.div
           className="crew-page__label"
@@ -449,7 +395,6 @@ export default function Crew() {
           <span className="crew-page__label-line" />
           <span>Personnel Roll</span>
         </motion.div>
-
         <motion.h1
           className="crew-page__title"
           initial={{ opacity: 0, y: 30 }}
@@ -458,18 +403,15 @@ export default function Crew() {
         >
           The Collective
         </motion.h1>
-
         <motion.p
           className="crew-page__desc"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.25 }}
         >
-          A crew of independent directors, camera technicians, sound recordists, and artists. 
+          A crew of independent directors, camera technicians, sound recordists, and artists.
           We develop stories from raw friction, capturing celluloid honesty in the cinema of chaos.
         </motion.p>
-
-        {/* Department Filters */}
         <motion.div
           className="crew-page__filters"
           initial={{ opacity: 0, y: 10 }}
@@ -495,7 +437,6 @@ export default function Crew() {
         </motion.div>
       </section>
 
-      {/* Contact Sheet Section */}
       <section className="crew-page__sheet">
         <div className="contact-sheet-board">
           <div className="contact-sheet-board__header">
@@ -503,16 +444,10 @@ export default function Crew() {
             <span className="contact-sheet-board__roll">ROLL: 35MM_01</span>
             <span className="contact-sheet-board__date">DATE: 08_JUNE_2026</span>
           </div>
-
           <div className="contact-sheet-board__strips">
             {chunkedCrew.length > 0 ? (
               chunkedCrew.map((row, idx) => (
-                <FilmStrip
-                  key={idx}
-                  row={row}
-                  activeIdxOffset={idx * 4}
-                  onFrameClick={setActiveMember}
-                />
+                <FilmStrip key={idx} row={row} onFrameClick={setActiveMember} />
               ))
             ) : (
               <div className="contact-sheet-board__empty">
@@ -520,14 +455,12 @@ export default function Crew() {
               </div>
             )}
           </div>
-
           <div className="contact-sheet-board__footer">
             <span>CONTACT SHEET // PROCESS E-6 MONOCHROME // CONFIDENTIAL</span>
           </div>
         </div>
       </section>
 
-      {/* Viewfinder Fullscreen Detail Modal */}
       <AnimatePresence>
         {activeMember && (
           <motion.div
@@ -537,10 +470,7 @@ export default function Crew() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
-            {/* Dark blur backing */}
             <div className="viewfinder-modal__backdrop" onClick={() => setActiveMember(null)} />
-
-            {/* Viewfinder Frame Box */}
             <motion.div
               className="viewfinder"
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -548,7 +478,6 @@ export default function Crew() {
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Camera view indicators */}
               <div className="viewfinder__camera-ui">
                 <div className="viewfinder__rec">
                   <span className="viewfinder__rec-dot" />
@@ -566,15 +495,12 @@ export default function Crew() {
                   <span>1/48 FPS</span>
                   <span>{activeMember.frameIndex}A</span>
                 </div>
-                {/* Viewfinder Grid Crosshairs */}
                 <div className="viewfinder__crosshairs" />
                 <div className="viewfinder__bracket viewfinder__bracket--tl" />
                 <div className="viewfinder__bracket viewfinder__bracket--tr" />
                 <div className="viewfinder__bracket viewfinder__bracket--bl" />
                 <div className="viewfinder__bracket viewfinder__bracket--br" />
               </div>
-
-              {/* Close button */}
               <button
                 className="viewfinder__close-btn"
                 onClick={() => setActiveMember(null)}
@@ -582,10 +508,7 @@ export default function Crew() {
               >
                 <span>[EJECT]</span>
               </button>
-
-              {/* Modal Grid Columns */}
               <div className="viewfinder__grid">
-                {/* Visual Left */}
                 <div className="viewfinder__visual">
                   {activeMember.photo ? (
                     <img src={activeMember.photo} alt={activeMember.name} className="viewfinder__photo" />
@@ -599,30 +522,21 @@ export default function Crew() {
                     </div>
                   )}
                 </div>
-
-                {/* Details Right */}
                 <div className="viewfinder__details">
                   <div className="viewfinder__meta">
                     <span className="viewfinder__label-tag">CREW MEMBER PROFILE</span>
                     <span className="viewfinder__marker-index">#{activeMember.frameIndex}</span>
                   </div>
-
                   <h2 className="viewfinder__name">{activeMember.name}</h2>
                   <span className="viewfinder__role">{activeMember.role}</span>
-
                   <div className="viewfinder__divider" />
-
                   <p className="viewfinder__bio">{activeMember.bio}</p>
-
-                  {/* Quote section */}
                   {activeMember.quote && (
                     <blockquote className="viewfinder__quote">
                       "{activeMember.quote}"
                     </blockquote>
                   )}
-
                   <div className="viewfinder__meta-grid">
-                    {/* Selected films */}
                     <div className="viewfinder__meta-item">
                       <span className="viewfinder__meta-title">Selected Filmography</span>
                       <ul className="viewfinder__meta-list">
@@ -631,8 +545,6 @@ export default function Crew() {
                         ))}
                       </ul>
                     </div>
-
-                    {/* Gear / Toolkit */}
                     <div className="viewfinder__meta-item">
                       <span className="viewfinder__meta-title">Gear / Toolkit</span>
                       <ul className="viewfinder__meta-list">
@@ -642,16 +554,13 @@ export default function Crew() {
                       </ul>
                     </div>
                   </div>
-
-                  {/* Navigation Footer */}
                   <div className="viewfinder__nav">
                     <button
                       className="viewfinder__nav-btn"
                       onClick={(e) => {
                         e.stopPropagation();
                         const idx = filteredCrew.findIndex(m => m.id === activeMember.id);
-                        const prev = (idx - 1 + filteredCrew.length) % filteredCrew.length;
-                        setActiveMember(filteredCrew[prev]);
+                        setActiveMember(filteredCrew[(idx - 1 + filteredCrew.length) % filteredCrew.length]);
                       }}
                     >
                       ← PREV
@@ -664,8 +573,7 @@ export default function Crew() {
                       onClick={(e) => {
                         e.stopPropagation();
                         const idx = filteredCrew.findIndex(m => m.id === activeMember.id);
-                        const next = (idx + 1) % filteredCrew.length;
-                        setActiveMember(filteredCrew[next]);
+                        setActiveMember(filteredCrew[(idx + 1) % filteredCrew.length]);
                       }}
                     >
                       NEXT →

@@ -83,8 +83,12 @@ export default function Footer() {
 
           {/* Right: socials */}
           <div className="footer__socials">
-            {['Instagram', 'YouTube', 'Vimeo'].map(s => (
-              <a key={s} href="#" className="footer__social">{s}</a>
+            {[
+              { label: 'Instagram', url: 'https://instagram.com' },
+              { label: 'YouTube',   url: 'https://youtube.com' },
+              { label: 'Vimeo',     url: 'https://vimeo.com' },
+            ].map(({ label, url }) => (
+              <a key={label} href={url} target="_blank" rel="noreferrer" className="footer__social">{label}</a>
             ))}
           </div>
         </div>
