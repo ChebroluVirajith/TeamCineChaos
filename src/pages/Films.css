@@ -1,0 +1,1130 @@
+.films-page {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+  background-color: var(--black);
+  overflow: hidden;
+}
+
+/* Lightbox grid background */
+.films-page__grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100px 100px;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Hero Section */
+.films-page__hero {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.films-page__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.films-page__label-line {
+  width: 24px;
+  height: 1px;
+  background: var(--dark-gray);
+}
+
+.films-page__title {
+  font-family: var(--font-title);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  letter-spacing: 0.05em;
+  color: var(--white);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.films-page__desc {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--silver);
+  line-height: 1.8;
+  max-width: 680px;
+  margin: 0 auto 3rem auto;
+}
+
+/* Filter Toggles */
+.films-page__filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--dark-gray);
+  padding-bottom: 1rem;
+}
+
+.films-page__filter-btn {
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--mid-gray);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.films-page__filter-btn:hover {
+  color: var(--white);
+}
+
+.films-page__filter-btn--active {
+  color: var(--white);
+}
+
+.films-page__filter-underline {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--white);
+}
+
+/* Section transition separator */
+.films-page__separator {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Films Rows List */
+.films-page__list {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 4rem auto 0 auto;
+  padding: 0 1.5rem;
+}
+
+.films-page__list-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+/* Press Kit Row Layout */
+.films-row {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 3rem;
+  border: 1px solid var(--dark-gray);
+  background: var(--off-black);
+  position: relative;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.films-row:hover {
+  border-color: var(--silver);
+}
+
+/* Theatrical play row styling */
+.films-row--theatrical {
+  border-color: rgba(212, 175, 55, 0.2);
+  box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.02);
+}
+
+.films-row--theatrical:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.04), 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Row Poster Column */
+.films-row__poster-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.films-row__poster-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--charcoal);
+}
+
+/* Scrolling Scanlines overlay */
+.films-row__scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.28) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+}
+
+.films-row:hover .films-row__scanlines {
+  opacity: 0.22;
+  animation: scanline-scroll 20s infinite linear;
+}
+
+@keyframes scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+.films-row__poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.1) brightness(0.9);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+
+.films-row:hover .films-row__poster-img {
+  transform: scale(1.05);
+  filter: grayscale(100%) contrast(1.2) brightness(0.95);
+}
+
+/* Fallback Poster Placeholder */
+.films-row__poster-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #151515;
+  position: relative;
+}
+
+.films-row__poster-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 12px,
+    rgba(255, 255, 255, 0.012) 12px,
+    rgba(255, 255, 255, 0.012) 13px
+  );
+}
+
+.films-row__poster-placeholder span {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  color: var(--dark-gray);
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+}
+
+.films-row__poster-sub {
+  font-family: var(--font-mono);
+  font-size: 0.55rem !important;
+  color: var(--dark-gray) !important;
+  letter-spacing: 0.2em !important;
+}
+
+/* Row corner brackets */
+.films-row__corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--silver);
+  border-style: solid;
+  opacity: 0.3;
+  z-index: 3;
+  pointer-events: none;
+  transition: border-color 0.4s ease, opacity 0.4s ease;
+}
+
+.films-row:hover .films-row__corner {
+  opacity: 0.6;
+}
+
+.films-row--theatrical .films-row__corner {
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+.films-row__corner--tl { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+.films-row__corner--tr { top: 8px; right: 8px; border-width: 1px 1px 0 0; }
+.films-row__corner--bl { bottom: 8px; left: 8px; border-width: 0 0 1px 1px; }
+.films-row__corner--br { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
+
+/* Details Column */
+.films-row__details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.films-row__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+}
+
+.films-row__dot {
+  color: var(--dark-gray);
+}
+
+/* Title & Underline */
+.films-row__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(2.2rem, 4.5vw, 3rem);
+  color: var(--white);
+  line-height: 1.15;
+  position: relative;
+  width: fit-content;
+  padding-bottom: 0.5rem;
+}
+
+.films-row__subtitle {
+  display: block;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+.films-row__underline-wrap {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  pointer-events: none;
+}
+
+.films-row__pencil-underline {
+  width: 100%;
+  height: 100%;
+}
+
+.films-row__divider {
+  width: 60px;
+  height: 1px;
+  background-color: var(--mid-gray);
+}
+
+.films-row__desc {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--silver);
+  line-height: 1.8;
+  max-width: 620px;
+}
+
+.films-row__credit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.films-row__credit-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+}
+
+.films-row__credit-name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+/* Tracing Border Button */
+.films-row__btn {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--silver);
+  cursor: pointer;
+  width: fit-content;
+  transition: color 0.3s ease;
+  z-index: 1;
+}
+
+.films-row__btn span {
+  position: relative;
+  z-index: 2;
+}
+
+/* SVG border overlay inside button */
+.films-row__btn-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Default state borders */
+.films-row__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--dark-gray);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.films-row--theatrical .films-row__btn::before {
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+.films-row__btn:hover {
+  color: var(--white);
+}
+
+.films-row--theatrical .films-row__btn:hover {
+  color: #d4af37;
+}
+
+.films-row__btn:hover::before {
+  opacity: 0; /* Hide basic border on hover so the SVG trace is visible */
+}
+
+/* Detail Lightbox Modal */
+.film-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.film-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(5, 5, 5, 0.88);
+  backdrop-filter: blur(12px);
+}
+
+/* Modal Content Box */
+.film-modal__content {
+  position: relative;
+  z-index: 10001;
+  width: 100%;
+  max-width: 1050px;
+  background: var(--off-black);
+  border: 1px solid var(--dark-gray);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  outline: 4px solid #000;
+  overflow: hidden;
+}
+
+/* Theatrical gold border details */
+.film-modal__content--theatrical {
+  border-color: rgba(212, 175, 55, 0.35);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(212, 175, 55, 0.05);
+}
+
+/* Close button */
+.film-modal__close-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 10;
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--mid-gray);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.film-modal__close-btn:hover {
+  color: #ff3b30;
+}
+
+.film-modal__content--theatrical .film-modal__close-btn:hover {
+  color: #d4af37;
+}
+
+/* Grid columns */
+.film-modal__grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  min-height: 580px;
+}
+
+.film-modal__poster-column {
+  background: #050505;
+  border-right: 1px solid var(--dark-gray);
+  overflow: hidden;
+  position: relative;
+}
+
+.film-modal__content--theatrical .film-modal__poster-column {
+  border-right-color: rgba(212, 175, 55, 0.2);
+}
+
+.film-modal__poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.15);
+  display: block;
+}
+
+/* Modal Fallback Poster */
+.film-modal__poster-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.film-modal__placeholder-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.8;
+}
+
+.film-modal__placeholder-year {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+}
+
+.film-modal__placeholder-title {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  color: var(--dark-gray);
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+/* Details Column */
+.film-modal__details-column {
+  padding: 4.5rem 3.5rem 3.5rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.film-modal__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.film-modal__genre {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+}
+
+.film-modal__theatrical-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.08);
+  padding: 0.1rem 0.5rem;
+  border-radius: 2px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.film-modal__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 0.25rem;
+}
+
+.film-modal__content--theatrical .film-modal__title {
+  color: #fff;
+}
+
+.film-modal__subtitle {
+  display: block;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+.film-modal__content--theatrical .film-modal__subtitle {
+  color: #d4af37;
+}
+
+.film-modal__divider {
+  width: 60px;
+  height: 1px;
+  background-color: var(--mid-gray);
+  margin: 1.5rem 0;
+}
+
+.film-modal__content--theatrical .film-modal__divider {
+  background-color: rgba(212, 175, 55, 0.25);
+}
+
+.film-modal__scrollable {
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 1.5rem;
+}
+
+/* Custom scrollbars inside modal */
+.film-modal__scrollable::-webkit-scrollbar { width: 3px; }
+.film-modal__scrollable::-webkit-scrollbar-track { background: transparent; }
+.film-modal__scrollable::-webkit-scrollbar-thumb { background: var(--dark-gray); border-radius: 2px; }
+
+.film-modal__section {
+  margin-bottom: 2rem;
+}
+
+.film-modal__section h3 {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.film-modal__content--theatrical .film-modal__section h3 {
+  color: #8c7320;
+}
+
+.film-modal__synopsis {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--silver);
+  line-height: 1.8;
+}
+
+.film-modal__meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.film-modal__text {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--white);
+  line-height: 1.6;
+}
+
+.film-modal__credits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.film-modal__credit-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.film-modal__role-label {
+  color: var(--mid-gray);
+}
+
+.film-modal__name-val {
+  color: var(--white);
+}
+
+.film-modal__festivals-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.film-modal__fest-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--silver);
+}
+
+.film-modal__fest-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #ff3b30;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.film-modal__content--theatrical .film-modal__fest-dot {
+  background-color: #d4af37;
+}
+
+/* --- Responsive Adaptations --- */
+
+@media (max-width: 900px) {
+  .films-row {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem;
+  }
+
+  .films-row__poster-container {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  /* Modal collapses to single column */
+  .film-modal {
+    padding: 1rem;
+  }
+
+  .film-modal__grid {
+    grid-template-columns: 1fr;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .film-modal__poster-column {
+    height: 280px;
+    border-right: none;
+    border-bottom: 1px solid var(--dark-gray);
+  }
+
+  .film-modal__details-column {
+    padding: 2.5rem 2rem 2rem 2rem;
+  }
+
+  .film-modal__scrollable {
+    max-height: none;
+    padding-right: 0;
+  }
+
+  .film-modal__close-btn {
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    border-radius: 2px;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .films-page {
+    padding-top: 6rem;
+  }
+
+  .films-page__hero {
+    margin-bottom: 2rem;
+  }
+
+  .films-page__filters {
+    gap: 0.75rem;
+  }
+
+  .films-page__filter-btn {
+    font-size: 0.6rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .films-page__list {
+    margin-top: 2rem;
+  }
+
+  .films-row {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .film-modal__meta-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .film-modal__credit-item {
+    grid-template-columns: 130px 1fr;
+  }
+}
+
+/* Modal Gallery Section */
+.film-modal__section--gallery {
+  margin-top: 3.5rem;
+}
+
+.film-modal__gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.film-modal__gallery-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background-color: #0f0f0f;
+  border: 1px solid var(--dark-gray);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.film-modal__content--theatrical .film-modal__gallery-item {
+  border-color: rgba(212, 175, 55, 0.18);
+}
+
+.film-modal__gallery-item:hover {
+  border-color: var(--silver);
+}
+
+.film-modal__content--theatrical .film-modal__gallery-item:hover {
+  border-color: rgba(212, 175, 55, 0.65);
+}
+
+.film-modal__gallery-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%) contrast(1.1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.film-modal__gallery-item:hover .film-modal__gallery-thumb {
+  transform: scale(1.04);
+  filter: grayscale(100%) contrast(1.2) brightness(0.95);
+}
+
+/* Fallback Gallery Slide Placeholder */
+.film-modal__gallery-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  background-color: #121212;
+  position: relative;
+}
+
+.film-modal__gallery-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(255, 255, 255, 0.008) 8px,
+    rgba(255, 255, 255, 0.008) 9px
+  );
+}
+
+.film-modal__gallery-slide-num {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--mid-gray);
+  position: relative;
+  z-index: 1;
+}
+
+.film-modal__content--theatrical .film-modal__gallery-slide-num {
+  color: #8c7320;
+}
+
+.film-modal__gallery-tba {
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  color: var(--dark-gray);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* Image Expansion Hover Overlay */
+.film-modal__gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.film-modal__gallery-overlay span {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--white);
+}
+
+.film-modal__content--theatrical .film-modal__gallery-overlay span {
+  color: #d4af37;
+}
+
+.film-modal__gallery-item:hover .film-modal__gallery-overlay {
+  opacity: 1;
+}
+
+/* Fullscreen Lightbox Overlay */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(3, 3, 3, 0.96);
+  backdrop-filter: blur(8px);
+}
+
+/* Lightbox Close */
+.lightbox__close-btn {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  z-index: 20002;
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--mid-gray);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+
+.lightbox__close-btn:hover {
+  color: #ff3b30;
+}
+
+/* Lightbox Container Content */
+.lightbox__container {
+  position: relative;
+  z-index: 20001;
+  max-width: 900px;
+  width: 100%;
+  background: var(--off-black);
+  border: 1px solid var(--dark-gray);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+  outline: 4px solid #000;
+  overflow: hidden;
+}
+
+.lightbox__content-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox__img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+  filter: grayscale(100%) contrast(1.15);
+}
+
+/* Placeholder for lightbox image pending swap */
+.lightbox__placeholder {
+  width: 100%;
+  height: 480px;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--dark-gray);
+  position: relative;
+}
+
+.lightbox__placeholder-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 2.2rem;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+
+.lightbox__placeholder-slide {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.08);
+  padding: 0.2rem 0.75rem;
+  border-radius: 2px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.lightbox__placeholder-tba {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--mid-gray);
+}
+
+.lightbox__caption {
+  padding: 1.5rem;
+  background-color: #0b0b0b;
+  border-top: 1px solid var(--dark-gray);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--silver);
+  text-transform: uppercase;
+}
+
+/* Lightbox Nav controls */
+.lightbox__nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20003;
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid var(--dark-gray);
+  color: var(--silver);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lightbox__nav-btn--prev {
+  left: -90px;
+}
+
+.lightbox__nav-btn--next {
+  right: -90px;
+}
+
+.lightbox__nav-btn:hover {
+  border-color: var(--silver);
+  color: var(--white);
+  background: #000;
+}
+
+@media (max-width: 1120px) {
+  .lightbox__nav-btn--prev { left: 20px; }
+  .lightbox__nav-btn--next { right: 20px; }
+}
+
+@media (max-width: 768px) {
+  .film-modal__gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .lightbox {
+    padding: 1rem;
+  }
+  
+  .lightbox__close-btn {
+    top: 20px;
+    right: 20px;
+  }
+  
+  .lightbox__placeholder {
+    height: 360px;
+  }
+  
+  .lightbox__placeholder-title {
+    font-size: 1.8rem;
+  }
+}
