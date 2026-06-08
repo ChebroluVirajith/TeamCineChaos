@@ -9,6 +9,88 @@
   overflow: hidden;
 }
 
+/* ── Projector beam ── */
+.hero__beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Main triangular beam shaft */
+.hero__beam-shaft {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 340px solid transparent;
+  border-right: 340px solid transparent;
+  border-top: 100vh solid rgba(255, 255, 255, 0.045);
+  filter: blur(18px);
+  animation: beamPulse 5s ease-in-out infinite;
+}
+
+/* Brighter inner core of the beam */
+.hero__beam-shaft::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-top: 60vh solid rgba(255, 255, 255, 0.06);
+  filter: blur(8px);
+}
+
+/* Horizontal light source glow at very top */
+.hero__beam-shaft::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  filter: blur(6px);
+  box-shadow: 0 0 30px 10px rgba(255,255,255,0.15);
+}
+
+@keyframes beamPulse {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1; }
+}
+
+/* Dust motes floating in the beam */
+.hero__beam-mote {
+  position: absolute;
+  top: 15%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 4px 1px rgba(255,255,255,0.4);
+}
+
+/* ── Splice letters ── */
+.hero__splice-word {
+  display: inline-flex;
+  align-items: baseline;
+}
+.hero__splice-letter {
+  display: inline-block;
+}
+
 /* Scan lines */
 .hero__scanlines {
   position: absolute;

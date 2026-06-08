@@ -102,6 +102,64 @@
   text-align: center;
 }
 
+/* ── Slot machine ── */
+.slot__number {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+/* The visible window — clips the reel */
+.slot__reel-window {
+  display: inline-block;
+  height: 56px; /* CELL_HEIGHT — must match JS */
+  overflow: hidden;
+  position: relative;
+  /* Top and bottom fade to suggest the reel continues */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 18%,
+    black 82%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 18%,
+    black 82%,
+    transparent 100%
+  );
+}
+
+/* The strip of digits that scrolls */
+.slot__reel-strip {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Individual digit cell */
+.slot__digit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px; /* CELL_HEIGHT */
+  font-family: var(--font-title);
+  font-size: 3rem;
+  color: var(--white);
+  line-height: 1;
+}
+
+/* Suffix — the + sign */
+.slot__suffix {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: var(--silver);
+  line-height: 1;
+  align-self: flex-start;
+  padding-top: 4px;
+}
+
 @media (max-width: 768px) {
   .manifesto { padding: 5rem 1.5rem; }
   .manifesto__stats { grid-template-columns: repeat(2, 1fr); }

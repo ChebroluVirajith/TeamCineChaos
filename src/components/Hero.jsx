@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Hero.css';
 
 const TAGLINES = [
@@ -9,14 +9,20 @@ const TAGLINES = [
   'EVERY SCENE, DELIBERATELY WILD',
 ];
 
+// Letters for the splice animation
+const CINE_LETTERS  = ['C','I','N','E'];
+const CHAOS_LETTERS = ['C','H','A','O','S'];
+
 export default function Hero() {
-  const [taglineIdx, setTaglineIdx] = useState(0);
-  const [frameCount, setFrameCount] = useState(0);
-  const [showTitle, setShowTitle] = useState(false);
+  const [taglineIdx, setTaglineIdx]   = useState(0);
+  const [frameCount, setFrameCount]   = useState(0);
   const [flickerDone, setFlickerDone] = useState(false);
+  const [showBeam, setShowBeam]       = useState(false);
+  const [showTitle, setShowTitle]     = useState(false);
+  const [splicePhase, setSplicePhase] = useState('hidden'); // hidden → split → snap → settled
   const intervalRef = useRef(null);
 
-  // Film counter
+  // ── Phase 1: film leader countdown (0–960ms) ──────────────────────────────
   useEffect(() => {
     let count = 0;
     const timer = setInterval(() => {
@@ -25,7 +31,14 @@ export default function Hero() {
       if (count >= 24) {
         clearInterval(timer);
         setFlickerDone(true);
-        setTimeout(() => setShowTitle(true), 300);
+        // ── Phase 2: projector beam appears ──────────────────────────────
+        setTimeout(() => setShowBeam(true), 100);
+        // ── Phase 3: title content mounts ────────────────────────────────
+        setTimeout(() => setShowTitle(true), 600);
+        // ── Phase 4: splice animation sequence ───────────────────────────
+        setTimeout(() => setSplicePhase('split'),   900);
+        setTimeout(() => setSplicePhase('snap'),   1400);
+        setTimeout(() => setSplicePhase('settled'),1700);
       }
     }, 40);
     return () => clearInterval(timer);
@@ -39,12 +52,47 @@ export default function Hero() {
     return () => clearInterval(intervalRef.current);
   }, []);
 
+  // Per-letter splice offsets (random-ish, deterministic)
+  const cineOffsets  = [-38, -22, 26, 42];
+  const chaosOffsets = [44, -28, 18, -40, 30];
+
+  const getLetterStyle = (offsets, i) => {
+    if (splicePhase === 'hidden')  return { opacity: 0 };
+    if (splicePhase === 'split')   return { opacity: 1, x: offsets[i], y: i % 2 === 0 ? -6 : 6 };
+    if (splicePhase === 'snap')    return { opacity: 1, x: offsets[i] * 0.08, y: 0 };
+    return { opacity: 1, x: 0, y: 0 };
+  };
+
   return (
     <section className="hero">
       {/* Scan lines */}
       <div className="hero__scanlines" aria-hidden="true" />
 
-      {/* Film leader countdown */}
+      {/* ── Projector beam ── */}
+      <AnimatePresence>
+        {showBeam && (
+          <motion.div
+            className="hero__beam"
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            <div className="hero__beam-shaft" />
+            {[...Array(7)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="hero__beam-mote"
+                style={{ left: `${44 + i * 2}%` }}
+                animate={{ y: [0, -20, 5, -12, 0], opacity: [0.3, 1, 0.2, 0.8, 0.3] }}
+                transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 }}
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Film leader countdown ── */}
       {!flickerDone && (
         <div className="hero__leader" aria-hidden="true">
           <div className="hero__leader-circle">
@@ -57,7 +105,7 @@ export default function Hero() {
         </div>
       )}
 
-      {/* Main hero content */}
+      {/* ── Main hero content ── */}
       {showTitle && (
         <div className="hero__content">
           {/* Top label */}
@@ -74,7 +122,7 @@ export default function Hero() {
             <span className="hero__label-line" />
           </motion.div>
 
-          {/* Main title */}
+          {/* TEAM */}
           <div className="hero__title-wrap">
             <motion.h1
               className="hero__title-team"
@@ -85,23 +133,42 @@ export default function Hero() {
               TEAM
             </motion.h1>
 
+            {/* CINE CHAOS — splice animation */}
             <div className="hero__title-cine-wrap">
-              <motion.span
-                className="hero__title-cine"
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              >
-                CINE
-              </motion.span>
-              <motion.span
-                className="hero__title-chaos"
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              >
-                CHAOS
-              </motion.span>
+              {/* CINE */}
+              <span className="hero__splice-word">
+                {CINE_LETTERS.map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    className="hero__title-cine hero__splice-letter"
+                    animate={getLetterStyle(cineOffsets, i)}
+                    transition={{
+                      duration: splicePhase === 'split' ? 0.25 : splicePhase === 'snap' ? 0.18 : 0.35,
+                      ease: splicePhase === 'snap' ? [0.34, 1.56, 0.64, 1] : [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </span>
+
+              {/* CHAOS */}
+              <span className="hero__splice-word">
+                {CHAOS_LETTERS.map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    className="hero__title-chaos hero__splice-letter"
+                    animate={getLetterStyle(chaosOffsets, i)}
+                    transition={{
+                      duration: splicePhase === 'split' ? 0.25 : splicePhase === 'snap' ? 0.18 : 0.35,
+                      ease: splicePhase === 'snap' ? [0.34, 1.56, 0.64, 1] : [0.16, 1, 0.3, 1],
+                      delay: splicePhase === 'split' ? i * 0.03 : 0,
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </span>
             </div>
           </div>
 
@@ -142,7 +209,7 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Film strip bottom bar */}
+          {/* Film strip */}
           <motion.div
             className="hero__filmstrip"
             initial={{ opacity: 0 }}

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import './Manifesto.css';
 
@@ -7,9 +7,83 @@ const words = [
   'We', 'make', 'honest', 'ones.'
 ];
 
+const STATS = [
+  { target: 12, suffix: '+', label: 'Films Produced' },
+  { target: 8,  suffix: '',  label: 'Crew Members' },
+  { target: 5,  suffix: '',  label: 'Festivals' },
+  { target: 3,  suffix: '',  label: 'Awards Won' },
+];
+
+// Single digit reel — scrolls through 0–9 and stops on `digit`
+function DigitReel({ digit, delay = 0, inView }) {
+  const DIGITS = ['0','1','2','3','4','5','6','7','8','9'];
+  const CELL_HEIGHT = 56; // px — must match CSS
+  const targetIndex = parseInt(digit, 10);
+  // Spin a full 2 loops then land on target
+  const finalY = -((20 + targetIndex) * CELL_HEIGHT);
+
+  return (
+    <span className="slot__reel-window" aria-hidden="true">
+      <motion.span
+        className="slot__reel-strip"
+        initial={{ y: 0 }}
+        animate={inView ? { y: finalY } : { y: 0 }}
+        transition={{
+          duration: 1.1,
+          delay,
+          ease: [0.25, 0.1, 0.15, 1],
+        }}
+      >
+        {/* Three copies so we can spin 2 full loops */}
+        {[...Array(3)].map((_, copy) =>
+          DIGITS.map((d, i) => (
+            <span key={`${copy}-${i}`} className="slot__digit">
+              {d}
+            </span>
+          ))
+        )}
+      </motion.span>
+    </span>
+  );
+}
+
+// Splits a number into individual digit reels + optional suffix
+function SlotMachine({ target, suffix, inView, delay = 0 }) {
+  const digits = String(target).split('');
+
+  return (
+    <span className="slot__number">
+      {digits.map((d, i) => (
+        <DigitReel
+          key={i}
+          digit={d}
+          inView={inView}
+          delay={delay + i * 0.12}
+        />
+      ))}
+      {suffix && (
+        <motion.span
+          className="slot__suffix"
+          initial={{ opacity: 0, y: 8 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.3, delay: delay + digits.length * 0.12 + 0.9 }}
+        >
+          {suffix}
+        </motion.span>
+      )}
+    </span>
+  );
+}
+
 export default function Manifesto() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-15%' });
+  const inView = useInView(ref, { once: false, margin: '-15%' });
+  const [cycle, setCycle] = useState(0);
+
+  // Every time inView turns true, bump cycle so slot machines remount fresh
+  useEffect(() => {
+    if (inView) setCycle(c => c + 1);
+  }, [inView]);
 
   return (
     <section className="manifesto" ref={ref}>
@@ -73,16 +147,13 @@ export default function Manifesto() {
         className="manifesto__stats"
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 1.4 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
       >
-        {[
-          { num: '12+', label: 'Films Produced' },
-          { num: '8',   label: 'Crew Members' },
-          { num: '5',   label: 'Festivals' },
-          { num: '3',   label: 'Awards Won' },
-        ].map(({ num, label }) => (
+        {STATS.map(({ target, suffix, label }, i) => (
           <div key={label} className="manifesto__stat">
-            <span className="manifesto__stat-num">{num}</span>
+            <span className="manifesto__stat-num">
+              <SlotMachine key={`${label}-${cycle}`} target={target} suffix={suffix} inView={inView} delay={1.4 + i * 0.15} />
+            </span>
             <span className="manifesto__stat-label">{label}</span>
           </div>
         ))}
