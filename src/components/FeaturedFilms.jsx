@@ -10,7 +10,7 @@ const film = {
   duration: 'Coming Soon',
   director: 'Sri Harsha Nihanth',
   desc: 'The first chapter of the Undying saga. When a quiet town wakes to something it cannot explain, survival becomes the only story worth telling.',
-  poster: null, // swap with: require('../assets/undying-poster.jpg')
+  poster: '/images/films/undying1.png', // swap with: require('../assets/undying-poster.jpg')
 };
 
 export default function FeaturedFilms() {

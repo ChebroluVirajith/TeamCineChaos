@@ -1,0 +1,679 @@
+/* ─────────────────────────────────────────────
+   Behind the Lens — Page
+───────────────────────────────────────────── */
+.btl-page {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  background-color: var(--black);
+  overflow: hidden;
+}
+
+.btl-page__grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100px 100px;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* ─────────────────────────────────────────────
+   Hero
+───────────────────────────────────────────── */
+.btl-hero {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto 6rem auto;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.btl-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.btl-hero__eyebrow-line {
+  width: 24px;
+  height: 1px;
+  background: var(--dark-gray);
+}
+
+.btl-hero__title {
+  font-family: var(--font-title);
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  letter-spacing: 0.04em;
+  color: var(--white);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin-bottom: 1.75rem;
+}
+
+.btl-hero__title-accent {
+  color: #ff3b30;
+  font-style: italic;
+}
+
+.btl-hero__desc {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--silver);
+  line-height: 1.85;
+  max-width: 640px;
+  margin: 0 auto 3rem auto;
+}
+
+.btl-hero__stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+  border: 1px solid var(--dark-gray);
+  padding: 1.25rem 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.btl-hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.btl-hero__stat-num {
+  font-family: var(--font-title);
+  font-size: 2.8rem;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.btl-hero__stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+}
+
+.btl-hero__stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--dark-gray);
+}
+
+.btl-hero__scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btl-hero__scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--mid-gray));
+  transform-origin: top;
+}
+
+.btl-hero__scroll-cue span {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--dark-gray);
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────
+   Timeline Container
+───────────────────────────────────────────── */
+.btl-timeline {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ─────────────────────────────────────────────
+   Spine
+───────────────────────────────────────────── */
+.spine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 40px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.spine__track {
+  position: absolute;
+  inset: 0;
+  background: #080808;
+  border-left: 1px solid #1a1a1a;
+  border-right: 1px solid #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 2rem 0;
+}
+
+.spine__sprocket {
+  width: 12px;
+  height: 16px;
+  background: #050505;
+  border-radius: 2px;
+  border: 1px solid #1f1f1f;
+  flex-shrink: 0;
+}
+
+.spine__progress {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, #ff3b30, rgba(255, 59, 48, 0.3));
+  transform-origin: top center;
+}
+
+/* ─────────────────────────────────────────────
+   Timeline Nodes
+───────────────────────────────────────────── */
+.btl-timeline__nodes {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding-bottom: 4rem;
+}
+
+/* Each node is a row: left-half | spine-col | right-half */
+.timeline-node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  align-items: center;
+}
+
+/* Spine dot always in middle column */
+.timeline-node__spine-dot {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+}
+
+.timeline-node__dot-inner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent, #ff3b30), 0 0 24px rgba(255, 59, 48, 0.2);
+}
+
+/* Left card: col 1, right-aligned with margin */
+.timeline-node--left .timeline-node__card {
+  grid-column: 1;
+  margin-right: 2.5rem;
+}
+
+/* Right card: col 3, left-aligned with margin */
+.timeline-node--right .timeline-node__card {
+  grid-column: 3;
+  margin-left: 2.5rem;
+}
+
+/* Connector line from card edge to spine dot */
+.timeline-node__card {
+  position: relative;
+  background: #0a0a0a;
+  border: 1px solid var(--dark-gray);
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.timeline-node__card:hover {
+  border-color: var(--accent, var(--silver));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.timeline-node--current .timeline-node__card {
+  border-color: rgba(255, 59, 48, 0.35);
+}
+
+/* Horizontal connector line */
+.timeline-node--left .timeline-node__card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -2.5rem;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--accent, var(--dark-gray));
+  opacity: 0.3;
+}
+
+.timeline-node--right .timeline-node__card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -2.5rem;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--accent, var(--dark-gray));
+  opacity: 0.3;
+}
+
+/* Corner brackets */
+.timeline-node__corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--accent, var(--silver));
+  border-style: solid;
+  opacity: 0.25;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.timeline-node__card:hover .timeline-node__corner {
+  opacity: 0.6;
+}
+
+.timeline-node__corner--tl { top: 6px;    left: 6px;  border-width: 1px 0 0 1px; }
+.timeline-node__corner--tr { top: 6px;    right: 6px; border-width: 1px 1px 0 0; }
+.timeline-node__corner--bl { bottom: 6px; left: 6px;  border-width: 0 0 1px 1px; }
+.timeline-node__corner--br { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+
+/* ─────────────────────────────────────────────
+   Film strip top/bottom bars
+───────────────────────────────────────────── */
+.timeline-node__film-top,
+.timeline-node__film-bottom {
+  background: #000;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeline-node__film-top {
+  border-bottom: 1px solid #111;
+}
+
+.timeline-node__film-bottom {
+  border-top: 1px solid #111;
+}
+
+.timeline-node__sprockets {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.timeline-node__sprocket {
+  width: 8px;
+  height: 11px;
+  background: #050505;
+  border-radius: 1.5px;
+  border: 1px solid #1f1f1f;
+}
+
+.timeline-node__frame-code {
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.18em;
+  color: #c9653a;
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────
+   Image area
+───────────────────────────────────────────── */
+.timeline-node__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0d0d0d;
+}
+
+.timeline-node__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.05);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-node__card:hover .timeline-node__image {
+  transform: scale(1.04);
+}
+
+.timeline-node__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.timeline-node__placeholder-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 14px,
+    rgba(255, 255, 255, 0.012) 14px,
+    rgba(255, 255, 255, 0.012) 15px
+  );
+}
+
+.timeline-node__placeholder-num {
+  font-family: var(--font-title);
+  font-size: 5rem;
+  color: #1e1e1e;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+
+.timeline-node__recording-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: #ff3b30;
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  padding: 0.25rem 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-node__rec-dot {
+  width: 6px;
+  height: 6px;
+  background: #ff3b30;
+  border-radius: 50%;
+  animation: rec-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
+}
+
+.timeline-node__scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.22) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.12;
+  z-index: 2;
+}
+
+/* ─────────────────────────────────────────────
+   Card content
+───────────────────────────────────────────── */
+.timeline-node__content {
+  padding: 1.75rem 2rem 2rem 2rem;
+}
+
+.timeline-node__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-node__tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid;
+  padding: 0.15rem 0.5rem;
+  border-radius: 1px;
+}
+
+.timeline-node__date {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+}
+
+.timeline-node__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-node__subtitle {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--silver);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.timeline-node__divider {
+  width: 40px;
+  height: 1px;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.timeline-node__desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--silver);
+  line-height: 1.8;
+}
+
+/* ─────────────────────────────────────────────
+   End of roll
+───────────────────────────────────────────── */
+.btl-timeline__end {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 4rem;
+  padding: 0 2rem;
+}
+
+.btl-timeline__end-line {
+  flex: 1;
+  height: 1px;
+  background: var(--dark-gray);
+}
+
+.btl-timeline__end-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  color: var(--mid-gray);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+───────────────────────────────────────────── */
+@media (max-width: 860px) {
+  /* Single column — spine on left */
+  .spine {
+    left: 20px;
+    transform: none;
+  }
+
+  /* All nodes become: spine-col | card */
+  .timeline-node {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .timeline-node__spine-dot {
+    grid-column: 1;
+  }
+
+  .timeline-node--left .timeline-node__card,
+  .timeline-node--right .timeline-node__card {
+    grid-column: 2;
+    margin-right: 0;
+    margin-left: 1.5rem;
+  }
+
+  .timeline-node--left .timeline-node__card::after,
+  .timeline-node--right .timeline-node__card::after {
+    left: -1.5rem;
+    right: auto;
+    width: 1.5rem;
+  }
+
+  .btl-timeline__nodes {
+    gap: 3.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .btl-hero__stats {
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .btl-page {
+    padding-top: 6rem;
+  }
+
+  .btl-hero {
+    margin-bottom: 4rem;
+  }
+
+  .btl-hero__stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btl-hero__stat-divider {
+    width: 40px;
+    height: 1px;
+  }
+
+  .timeline-node__content {
+    padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+  }
+
+  .timeline-node__title {
+    font-size: 1.5rem;
+  }
+
+  .btl-timeline__end {
+    padding: 0 1rem;
+  }
+
+  .btl-timeline__end-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Card column wrappers (replaces old card grid placement)
+───────────────────────────────────────────── */
+.timeline-node__card-col {
+  position: relative;
+}
+
+.timeline-node__card-col--left {
+  padding-right: 2.5rem;
+}
+
+.timeline-node__card-col--right {
+  padding-left: 2.5rem;
+}
+
+/* Connector lines from card to spine dot */
+.timeline-node__card-col--left::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--dark-gray);
+  opacity: 0.4;
+}
+
+.timeline-node__card-col--right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--dark-gray);
+  opacity: 0.4;
+}
+
+/* Remove old card::after rules that conflict */
+.timeline-node__card::after {
+  display: none !important;
+}
+
+/* ── Mobile override for card cols ── */
+@media (max-width: 860px) {
+  .timeline-node__card-col--left,
+  .timeline-node__card-col--right {
+    padding-left: 1.5rem;
+    padding-right: 0;
+  }
+
+  .timeline-node__card-col--left::after,
+  .timeline-node__card-col--right::after {
+    left: 0;
+    right: auto;
+    width: 1.5rem;
+    top: 50%;
+  }
+}

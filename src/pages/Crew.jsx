@@ -14,18 +14,20 @@ const CREW_MEMBERS = [
   {
     id: 1,
     name: 'Sri Harsha Nihanth',
+    photo : '/images/films/shn.jpeg',
     role: 'Director & Editor',
     department: 'production',
     frameIndex: '1',
     greasePencilType: 'circle',
     bio: 'The creative visionary of Team Cine Chaos.',
-    Projects: ['Undying Part-1', 'Trust No Gun', 'Escape the Eclipse', 'Undying Part-2', 'Kundeti Kommu', 'Lyft'],
-    gear: ['RED Komodo 6K', 'Helios 44-2 58mm', 'DaVinci Resolve Studio'],
+    Projects: ['Undying Part-1', 'Trust No Gun', 'Escape the Eclipse', 'Undying Part-2', 'Kundeti Kommu', 'Lift'],
+    Skills: ['Editing', 'Direction', 'Acting', 'Designing'],
     quote: "Stories aren't made in the comfort zone. They're forged in the chaos."
   },
   {
     id: 2,
     name: 'Shruthy',
+    photo : '/images/films/shr.jpeg',
     role: 'Make-up & Production',
     department: 'Production',
     frameIndex: '2',
@@ -38,6 +40,7 @@ const CREW_MEMBERS = [
   {
     id: 3,
     name: 'Sreenidhi',
+    photo : '/images/films/sree.jpeg',
     role: 'Assitant Director',
     department: 'Directction',
     frameIndex: '3',
@@ -50,18 +53,19 @@ const CREW_MEMBERS = [
   {
     id: 4,
     name: 'Harshith Battu',
-    role: 'Editor & Cinematographer',
+    role: 'Asst Director & Cinematographer',
     department: 'Direction',
     frameIndex: '4',
     greasePencilType: 'cross',
     bio: '',
-    Projects: ['Undying Part-1', 'Kundeti Kommu', 'Undying Part-2', 'Lyft'],
+    Projects: ['Undying Part-1', 'Kundeti Kommu', 'Undying Part-2', 'Lift'],
     Skills: ['Screenplay Writer','Editing'],
     quote: "Silence is a sound. You just have to know how to mix it."
   },
   {
     id: 5,
     name: 'Likitha',
+    photo : '/images/films/lik.jpeg',
     role: 'Production',
     department: 'Production & Direction',
     frameIndex: '5',
@@ -74,6 +78,7 @@ const CREW_MEMBERS = [
   {
     id: 6,
     name: 'Venkateshwarlu',
+    photo : '/images/films/ven.jpeg',
     role: 'Actor',
     department: 'Acting',
     frameIndex: '6',
@@ -87,6 +92,7 @@ const CREW_MEMBERS = [
     id: 7,
     name: 'Rithvik',
     role: 'Actor',
+    photo: '/images/films/rit.jpeg',
     department: 'Actor',
     frameIndex: '7',
     greasePencilType: 'check',
@@ -98,6 +104,7 @@ const CREW_MEMBERS = [
   {
     id: 8,
     name: 'Virajith',
+    photo : '/images/films/vir.jpeg',
     role: 'Production & Asst Director',
     department: 'Production',
     frameIndex: '8',
@@ -110,6 +117,7 @@ const CREW_MEMBERS = [
   {
     id: 9,
     name: 'Lasyavi',
+    photo : '/images/films/las.jpeg',
     role: 'Designer',
     department: 'Production',
     frameIndex: '9',
@@ -122,6 +130,7 @@ const CREW_MEMBERS = [
   {
     id: 10,
     name: 'Aakanksha',
+    photo : '/images/films/aak.jpeg',
     role: 'Photographer',
     department: 'Production',
     frameIndex: '10',
@@ -135,6 +144,7 @@ const CREW_MEMBERS = [
     id: 11,
     name: 'Ranjith',
     role: 'Production',
+    photo: '/images/films/ran.jpeg',
     department: 'Production',
     frameIndex: '11',
     greasePencilType: 'star',
@@ -145,8 +155,9 @@ const CREW_MEMBERS = [
   },
   {
     id: 12,
-    name: 'Vikyath',
+    name: 'Vikhyath',
     role: 'Production & Actor',
+    photo : '/images/films/vik.jpeg',
     department: 'Production',
     frameIndex: '12',
     greasePencilType: 'circle',
@@ -158,6 +169,7 @@ const CREW_MEMBERS = [
   {
     id: 13,
     name: 'Giri Varun',
+    photo: '/images/films/gv.jpeg',
     role: 'Asst Director & Production',
     department: 'Direction',
     frameIndex: '13',
@@ -170,6 +182,7 @@ const CREW_MEMBERS = [
   {
     id: 14,
     name: 'Sriram',
+    photo : '/images/films/sri.jpeg',
     role: 'Actor & Production',
     department: 'Production',
     frameIndex: '14',
@@ -182,6 +195,7 @@ const CREW_MEMBERS = [
   {
     id: 15,
     name: 'Nitish',
+    photo : '/images/films/nit.jpeg',
     role: 'Actor & Direction',
     department: 'Direction',
     frameIndex: '15',
@@ -194,6 +208,7 @@ const CREW_MEMBERS = [
   {
     id: 16,
     name: 'Trishal',
+    photo : '/images/films/tri.jpeg',
     role: 'Asst Director',
     department: 'Direction',
     frameIndex: '16',
@@ -284,25 +299,18 @@ function FilmFrame({ member, index = 0, onClick }) {
       transition={{ duration: 0.8, delay: staggerDelay, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="film-frame__container">
-        {member.photo ? (
-          <img src={member.photo} alt={member.name} className="film-frame__photo" />
-        ) : (
-          <div className="film-frame__placeholder" aria-hidden="true">
-            <div className="film-frame__placeholder-stripes" />
-            <span className="film-frame__initials">{getInitials(member.name)}</span>
-            <span className="film-frame__placeholder-sub">frame {member.frameIndex}</span>
-          </div>
-        )}
+        <div className="film-frame__placeholder" aria-hidden="true">
+          <div className="film-frame__placeholder-stripes" />
+          <span className="film-frame__initials">{getInitials(member.name)}</span>
+          <span className="film-frame__placeholder-sub">frame {member.frameIndex}</span>
+        </div>
         <div className="film-frame__bracket film-frame__bracket--tl" />
         <div className="film-frame__bracket film-frame__bracket--tr" />
         <div className="film-frame__bracket film-frame__bracket--bl" />
         <div className="film-frame__bracket film-frame__bracket--br" />
         <GreasePencil type="star" isHovered={isHovered} />
       </div>
-      <div className="film-frame__label">
-        <span className="film-frame__name">{member.name}</span>
-        <span className="film-frame__role">{member.role}</span>
-      </div>
+
     </motion.div>
   );
 }

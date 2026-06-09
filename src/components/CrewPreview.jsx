@@ -7,7 +7,7 @@ const chief = {
   title: 'Chief of Team Cine Chaos',
   role: 'Director & Editor',
   initial: 'SHN',
-  photo: null, // swap with: require('../assets/chief.jpg')
+  photo: '/images/films/sh.jpeg', // swap with: require('../assets/chief.jpg')
 };
 
 export default function CrewPreview() {

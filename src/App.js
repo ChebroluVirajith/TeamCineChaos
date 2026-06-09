@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Crew from './pages/Crew';
 import Films from './pages/Films';
+import Behindthelens from './pages/Behindthelens';
 import Home from './pages/Home';
 
 const Placeholder = ({ title }) => (
@@ -35,7 +36,7 @@ export default function App() {
         <Route path="/"         element={<Home />} />
         <Route path="/films"    element={<Films />} />
        <Route path="/crew"     element={<Crew />} />
-        <Route path="/btl"      element={<Placeholder title="BEHIND THE LENS" />} />
+        <Route path="/behindthelens"      element={<Behindthelens />} />
         <Route path="/contact"  element={<Placeholder title="CONTACT" />} />
       </Routes>
       <Footer />

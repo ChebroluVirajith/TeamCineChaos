@@ -14,8 +14,9 @@ const FILMS_DATA = [
   {
     id: 1,
     title: 'Trust No Gun',
+    poster: '/images/films/trustnogun.png', 
     subtitle: 'No Honor Among Outlaws',
-    year: '2023',
+    year: '2025',
     genre: 'Action Thriller · Short Film',
     category: 'short',
     duration: '14 Mins',
@@ -24,21 +25,45 @@ const FILMS_DATA = [
     cast: ['Karan Verma', 'Arjun Reddy', 'Kabir Malhotra'],
     crew: {
       'Director': 'Sri Harsha Nihanth',
-      'Director of Photography': 'Arjun Reddy',
+      'Director of Photography': 'Arjun R',
       'Sound Designer': 'Vikram Dev',
       'Art Director': 'Priya Sen'
     },
     festivals: [
-      'Vijayawada Indie Film Festival (Best Director)',
-      'Hyderabad Cine Awards (Official Selection)'
+      '',
+      
     ],
-    format: 'Digital 4K · 2.39:1 CinemaScope'
+    format: '4K '
   },
   {
     id: 2,
-    title: 'The Lyft',
+    title: 'Escape the Eclipse',
+    subtitle: 'The Resistance',
+    year: '2025',
+    genre: 'Horror Action · Short Film',
+    category: 'short',
+    duration: 'In Production',
+    director: 'Sri Harsha Nihanth',
+    desc: 'In the aftermath of the outbreak, the survivors band together to reclaim their town. But the horror has evolved, and the real enemy might be within their own walls.',
+    cast: ['Karan Verma', 'Divya Nair', 'Kabir Malhotra'],
+    crew: {
+      'Director': 'Sri Harsha Nihanth',
+      'Director of Photography': 'Arjun Reddy',
+      'Sound Designer': 'Vikram Dev',
+      'VFX Supervisor': 'Aditya Goel'
+    },
+    festivals: [
+      'Forthcoming Submissions (Late 2026)'
+    ],
+    format: 'Digital 6K · 2.39:1 CinemaScope'
+  },
+  
+  {
+    id: 3,
+    title: 'The Lift',
+    poster: '/images/films/lift.jpeg', 
     subtitle: 'The Ride You Can\'t Escape',
-    year: '2024',
+    year: '2025',
     genre: 'Mystery Thriller · Short Film',
     category: 'short',
     duration: '18 Mins',
@@ -58,8 +83,9 @@ const FILMS_DATA = [
     format: 'Digital 4K · 1.85:1 Flat'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Undying Part 1',
+    poster: '/images/films/undying1.png', 
     subtitle: 'The Outbreak',
     year: '2025',
     genre: 'Horror · Short Film',
@@ -80,7 +106,7 @@ const FILMS_DATA = [
     format: 'Digital 6K · 2.39:1 CinemaScope'
   },
   {
-    id: 4,
+    id: 5,
     title: 'Undying Part 2',
     subtitle: 'The Resistance',
     year: '2026',
@@ -101,9 +127,11 @@ const FILMS_DATA = [
     ],
     format: 'Digital 6K · 2.39:1 CinemaScope'
   },
+
   {
-    id: 5,
+    id: 6,
     title: 'Kundeti Kommu',
+    poster: '/images/films/kk.png', 
     subtitle: 'A Theatrical Play',
     year: '2026',
     genre: 'Satire Drama · Theatrical Play',
